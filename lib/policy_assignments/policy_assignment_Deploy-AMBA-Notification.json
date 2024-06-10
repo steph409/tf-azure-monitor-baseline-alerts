@@ -1,0 +1,71 @@
+{
+    "type": "Microsoft.Authorization/policyAssignments",
+    "apiVersion": "2022-06-01",
+    "location": "${default_location}",
+    "dependsOn": [],
+    "identity": {
+        "type": "SystemAssigned"
+    },
+    "name": "Deploy-AMBA-Notification",
+    "properties": {
+        "metadata": {
+            "_deployed_by_amba": true
+        },
+        "scope": "${current_scope_resource_id}",
+        "notScopes": [],
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policySetDefinitions/Notification-Assets",
+        "enforcementMode": "Default",
+        "nonComplianceMessages": [
+            {
+                "message": "Notification Assets {enforcementMode} be deployed to Azure services.",
+                "Default": "must",
+                "DoNotEnforce": "should"
+            }
+        ],
+        "description": "Initiative to deploy AMBA Notification Assets",
+        "displayName": "Deploy Azure Monitor Baseline Alerts - Notification Assets",
+        "parameters": {
+            "ALZMonitorResourceGroupName": {
+                "value": "ALZ-Monitoring-RG"
+            },
+            "ALZMonitorResourceGroupTags": {
+                "value": {
+                    "_deployed_by_alz_monitor": true
+                }
+            },
+            "ALZMonitorResourceGroupLocation": {
+                "value": "centralus"
+            },
+            "ALZMonitorActionGroupEmail": {
+                "value": ""
+            },
+            "ALZLogicappResourceId": {
+                "value": ""
+            },
+            "ALZLogicappCallbackUrl": {
+                "value": ""
+            },
+            "ALZArmRoleId": {
+                "value": ""
+            },
+            "ALZEventHubResourceId": {
+                "value": ""
+            },
+            "ALZWebhookServiceUri": {
+                "value": ""
+            },
+            "ALZFunctionResourceId": {
+                "value": ""
+            },
+            "ALZFunctionTriggerUrl": {
+                "value": ""
+            },
+            "BYOActionGroup": {
+                "value": ""
+            },
+            "BYOAlertProcessingRule": {
+                "value": ""
+            }
+        }
+    }
+}

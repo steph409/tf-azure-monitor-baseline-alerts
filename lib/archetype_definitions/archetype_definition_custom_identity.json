@@ -1,0 +1,7 @@
+{
+  "name": "custom_identity",
+  "policy_assignments": ["Deploy-AMBA-Identity"],
+  "policy_definitions": [],
+  "policy_set_definitions": [],
+  "role_definitions": []
+}

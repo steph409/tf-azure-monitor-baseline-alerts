@@ -1,0 +1,113 @@
+{
+    "type": "Microsoft.Authorization/policyAssignments",
+    "apiVersion": "2022-06-01",
+    "location": "${default_location}",
+    "dependsOn": [],
+    "identity": {
+        "type": "SystemAssigned"
+    },
+    "name": "Deploy-AMBA-Identity",
+    "properties": {
+        "metadata": {
+            "_deployed_by_amba": true
+        },
+        "scope": "/providers/Microsoft.Management/managementGroups/${IdentityManagementGroup}",
+        "notScopes": [],
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policySetDefinitions/Alerting-Identity",
+        "enforcementMode": "Default",
+        "nonComplianceMessages": [
+            {
+                "message": "Alerting {enforcementMode} be deployed to Azure services.",
+                "Default": "must",
+                "DoNotEnforce": "should"
+            }
+        ],
+        "description": "Initiative to deploy AMBA alerts relevant to the ALZ Identity management group",
+        "displayName": "Deploy Azure Monitor Baseline Alerts for Identity",
+        "parameters": {
+            "ALZMonitorResourceGroupName": {
+                "value": "ALZ-Monitoring-RG"
+            },
+            "ALZMonitorResourceGroupTags": {
+                "value": {
+                    "_deployed_by_alz_monitor": true
+                }
+            },
+            "ALZMonitorResourceGroupLocation": {
+                "value": "centralus"
+            },
+            "KVRequestAlertSeverity": {
+                "value": "2"
+            },
+            "KVRequestWindowSize": {
+                "value": "PT5M"
+            },
+            "KVRequestEvaluationFrequency": {
+                "value": "PT5M"
+            },
+            "KVRequestPolicyEffect": {
+                "value": "disabled"
+            },
+            "KVRequestAlertState": {
+                "value": "true"
+            },
+            "KvAvailabilityAlertSeverity": {
+                "value": "1"
+            },
+            "KvAvailabilityWindowSize": {
+                "value": "PT1M"
+            },
+            "KvAvailabilityEvaluationFrequency": {
+                "value": "PT1M"
+            },
+            "KvAvailabilityPolicyEffect": {
+                "value": "disabled"
+            },
+            "KvAvailabilityAlertState": {
+                "value": "true"
+            },
+            "KVAvailabilityThreshold": {
+                "value": "20"
+            },
+            "KvLatencyAvailabilityAlertSeverity": {
+                "value": "3"
+            },
+            "KvLatencyAvailabilityWindowSize": {
+                "value": "PT5M"
+            },
+            "KvLatencyAvailabilityEvaluationFrequency": {
+                "value": "PT5M"
+            },
+            "KvLatencyAvailabilityPolicyEffect": {
+                "value": "disabled"
+            },
+            "KvLatencyAvailabilityAlertState": {
+                "value": "true"
+            },
+            "KvLatencyAvailabilityThreshold": {
+                "value": "1000"
+            },
+            "KVCapacityAlertSeverity": {
+                "value": "1"
+            },
+            "KVCapacityWindowSize": {
+                "value": "PT5M"
+            },
+            "KVCapacityEvaluationFrequency": {
+                "value": "PT1M"
+            },
+            "KVCapacityPolicyEffect": {
+                "value": "disabled"
+            },
+            "KVCapacityAlertState": {
+                "value": "true"
+            },
+            "KVCapacityThreshold": {
+                "value": "75"
+            },
+            "activityKVDeleteAlertState": {
+                "value": "true"
+            }
+        }
+    }
+}

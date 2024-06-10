@@ -1,0 +1,7 @@
+{
+  "name": "custom_landingzones",
+  "policy_assignments": ["Deploy-AMBA-LandingZone"],
+  "policy_definitions": [],
+  "policy_set_definitions": [],
+  "role_definitions": []
+}

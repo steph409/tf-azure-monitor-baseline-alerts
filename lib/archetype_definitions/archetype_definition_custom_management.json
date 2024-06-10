@@ -1,0 +1,7 @@
+{
+  "name": "custom_management",
+  "policy_assignments": ["Deploy-AMBA-Management"],
+  "policy_definitions": [],
+  "policy_set_definitions": [],
+  "role_definitions": []
+}

@@ -1,0 +1,104 @@
+{
+    "type": "Microsoft.Authorization/policyAssignments",
+    "apiVersion": "2022-06-01",
+    "location": "${default_location}",
+    "dependsOn": [],
+    "identity": {
+        "type": "SystemAssigned"
+    },
+    "name": "Deploy-AMBA-SvcHealth",
+    "properties": {
+        "metadata": {
+            "_deployed_by_amba": true
+        },
+        "scope": "${current_scope_resource_id}",
+        "notScopes": [],
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policySetDefinitions/Alerting-ServiceHealth",
+        "enforcementMode": "Default",
+        "nonComplianceMessages": [
+            {
+                "message": "Alerting {enforcementMode} be deployed to Azure services.",
+                "Default": "must",
+                "DoNotEnforce": "should"
+            }
+        ],
+        "description": "Initiative to deploy AMBA Service Health alerts to Azure services",
+        "displayName": "Deploy Azure Monitor Baseline Alerts for Service Health",
+        "parameters": {
+            "ALZMonitorResourceGroupName": {
+                "value": "ALZ-Monitoring-RG"
+            },
+            "ALZMonitorResourceGroupTags": {
+                "value": {
+                    "_deployed_by_alz_monitor": true
+                }
+            },
+            "ALZMonitorResourceGroupLocation": {
+                "value": "centralus"
+            },
+            "ResHlthUnhealthyAlertState": {
+                "value": "true"
+            },
+            "ResHlthUnhealthyPolicyEffect": {
+                "value": "deployIfNotExists"
+            },
+            "SvcHlthAdvisoryAlertState": {
+                "value": "true"
+            },
+            "serviceHealthAdvisoryPolicyEffect": {
+                "value": "deployIfNotExists"
+            },
+            "SvcHlthIncidentAlertState": {
+                "value": "true"
+            },
+            "serviceHealthIncidentPolicyEffect": {
+                "value": "deployIfNotExists"
+            },
+            "SvcHlthMaintenanceAlertState": {
+                "value": "true"
+            },
+            "serviceHealthMaintenancePolicyEffect": {
+                "value": "deployIfNotExists"
+            },
+            "svcHlthSecAdvisoryAlertState": {
+                "value": "true"
+            },
+            "serviceHealthSecurityPolicyEffect": {
+                "value": "deployIfNotExists"
+            },
+            "MonitorDisable": {
+                "value": "MonitorDisable"
+            },
+            "ALZMonitorActionGroupEmail": {
+                "value": ""
+            },
+            "ALZLogicappResourceId": {
+                "value": ""
+            },
+            "ALZLogicappCallbackUrl": {
+                "value": ""
+            },
+            "ALZArmRoleId": {
+                "value": ""
+            },
+            "ALZEventHubResourceId": {
+                "value": ""
+            },
+            "ALZWebhookServiceUri": {
+                "value": ""
+            },
+            "ALZFunctionResourceId": {
+                "value": ""
+            },
+            "ALZFunctionTriggerUrl": {
+                "value": ""
+            },
+            "BYOActionGroup": {
+                "value": ""
+            },
+            "BYOAlertProcessingRule": {
+                "value": ""
+            }
+        }
+    }
+}

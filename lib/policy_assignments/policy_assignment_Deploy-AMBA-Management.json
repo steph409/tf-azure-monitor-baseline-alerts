@@ -1,0 +1,92 @@
+{
+    "type": "Microsoft.Authorization/policyAssignments",
+    "apiVersion": "2022-06-01",
+    "location": "${default_location}",
+    "dependsOn": [],
+    "identity": {
+        "type": "SystemAssigned"
+    },
+    "name": "Deploy-AMBA-Management",
+    "properties": {
+        "metadata": {
+            "_deployed_by_amba": true
+        },
+        "scope": "/providers/Microsoft.Management/managementGroups/${managementManagementGroup}",
+        "notScopes": [],
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policySetDefinitions/Alerting-Management",
+        "enforcementMode": "Default",
+        "nonComplianceMessages": [
+            {
+                "message": "Alerting {enforcementMode} be deployed to Azure services.",
+                "Default": "must",
+                "DoNotEnforce": "should"
+            }
+        ],
+        "description": "Initiative to deploy AMBA alerts relevant to the ALZ Management management group",
+        "displayName": "Deploy Azure Monitor Baseline Alerts for Management",
+        "parameters": {
+            "ALZMonitorResourceGroupName": {
+                "value": "ALZ-Monitoring-RG"
+            },
+            "ALZMonitorResourceGroupTags": {
+                "value": {
+                    "_deployed_by_alz_monitor": true
+                }
+            },
+            "ALZMonitorResourceGroupLocation": {
+                "value": "centralus"
+            },
+            "AATotalJobAlertSeverity": {
+                "value": "2"
+            },
+            "AATotalJobAlertWindowSize": {
+                "value": "PT5M"
+            },
+            "AATotalJobAlertEvaluationFrequency": {
+                "value": "PT1M"
+            },
+            "AATotalJobAlertPolicyEffect": {
+                "value": "deployIfNotExists"
+            },
+            "AATotalJobAlertAlertState": {
+                "value": "true"
+            },
+            "AATotalJobAlertThreshold": {
+                "value": "20"
+            },
+            "RVBackupHealthMonitorPolicyEffect": {
+                "value": "modify"
+            },
+            "StorageAccountAvailabilityAlertSeverity": {
+                "value": "1"
+            },
+            "StorageAccountAvailabilityWindowSize": {
+                "value": "PT5M"
+            },
+            "StorageAccountAvailabilityFrequency": {
+                "value": "PT5M"
+            },
+            "StorageAccountAvailabilityPolicyEffect": {
+                "value": "deployIfNotExists"
+            },
+            "StorageAccountAvailabilityAlertState": {
+                "value": "true"
+            },
+            "StorageAccountAvailabilityThreshold": {
+                "value": "90"
+            },
+            "StorageAccountDeletePolicyEffect": {
+                "value": "deployIfNotExists"
+            },
+            "StorageAccountDeleteAlertState": {
+                "value": "true"
+            },
+            "activityLAWDeleteAlertState": {
+                "value": "true"
+            },
+            "activityLAWKeyRegenAlertState": {
+                "value": "true"
+            }
+        }
+    }
+}
