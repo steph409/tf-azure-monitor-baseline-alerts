@@ -8,12 +8,12 @@ data "azurerm_management_group" "connectivity" {
 }
 
 data "alz_archetype" "connectivity" {
-  id = "slcorp-connectivity"
+  id = data.azurerm_management_group.connectivity.name
   defaults = {
     location = var.default_location
   }
-  base_archetype = "custom_connectivity"
-  parent_id      = data.azurerm_management_group.this.name # root management group name
+  base_archetype = data.alz_archetype_keys.connectivity.base_archetype
+  parent_id      = data.azurerm_management_group.root.name # root management group name
   policy_assignments_to_modify = {
     Deploy-AMBA-Connectivity = {
       parameters = jsonencode({

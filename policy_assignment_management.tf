@@ -8,12 +8,12 @@ data "azurerm_management_group" "management" {
 }
 
 data "alz_archetype" "management" {
-  id = "slcorp-management"
+  id = data.azurerm_management_group.management.name
   defaults = {
     location = var.default_location
   }
-  base_archetype = "custom_management"
-  parent_id      = data.azurerm_management_group.this.name # root management group name
+  base_archetype = data.alz_archetype_keys.management.base_archetype
+  parent_id      = data.azurerm_management_group.root.name # root management group name
 
   policy_assignments_to_modify = {
     Deploy-AMBA-Management = {

@@ -8,12 +8,12 @@ data "azurerm_management_group" "landingzones" {
 }
 
 data "alz_archetype" "landingzones" {
-  id = "slcorp-landing-zones"
+  id = data.azurerm_management_group.landingzones.name
   defaults = {
     location = var.default_location
   }
-  base_archetype = "custom_landingzones"
-  parent_id      = data.azurerm_management_group.this.name # root management group name
+  base_archetype = data.alz_archetype_keys.landingzones.base_archetype
+  parent_id      = data.azurerm_management_group.root.name # root management group name
 
   policy_assignments_to_modify = {
     Deploy-AMBA-LandingZone = {

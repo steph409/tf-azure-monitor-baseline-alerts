@@ -8,8 +8,31 @@ data "azurerm_client_config" "current" {}
 
 
 locals {
-  alz_policy_definitions_decoded = { for k in data.alz_archetype_keys.this.alz_policy_definition_keys : k => jsondecode(data.alz_archetype.this.alz_policy_definitions[k]) }
-  alz_policy_set_definitions_decoded = { for k in data.alz_archetype_keys.this.alz_policy_set_definition_keys : k => jsondecode(data.alz_archetype.this.alz_policy_set_definitions[k]) }
+
+  template_file_vars = {
+    root_scope_resource_id      = "/providers/Microsoft.Management/managementGroups/slcorp"
+    current_scope_resource_id   = "/providers/Microsoft.Management/managementGroups/slcorp"
+    default_location            = "germanywestcentral"
+    connectivityManagementGroup = "slcorp-connectivity"
+    managementManagementGroup   = "slcorp-management"
+    IdentityManagementGroup     = "slcorp-identity"
+    LandingZoneManagementGroup  = "slcorp-landing-zones"
+    contoso                     = "slcorp"
+  }
+
+  # TODO - this is not working as expected, e.g. the default location is not picked up correctly
+  # alz_policy_definitions_decoded = { for k in data.alz_archetype_keys.this.alz_policy_definition_keys : k => jsondecode(data.alz_archetype.this.alz_policy_definitions[k]) }
+  # there is a new experiment templatestring in terraform v1.9 alpha which might be a solution for this
+  # workaround until this is GA:
+  # alz_policy_definitions_decoded     = { for k in data.alz_archetype_keys.root.alz_policy_definition_keys : k => jsondecode(data.alz_archetype.root.alz_policy_definitions[k]) }
+
+  alz_policy_definitions_decoded = { for k in data.alz_archetype_keys.root.alz_policy_definition_keys :
+    k => jsondecode(
+      templatefile("lib/policy_definitions/policy_definition_${lower(k)}.json", local.template_file_vars)
+    )
+  }
+
+  alz_policy_set_definitions_decoded = { for k in data.alz_archetype_keys.root.alz_policy_set_definition_keys : k => jsondecode(data.alz_archetype.root.alz_policy_set_definitions[k]) }
 }
 
 
@@ -21,7 +44,7 @@ resource "azurerm_policy_definition" "this" {
   name                = each.key
   policy_type         = try(each.value.properties.policyType, "Custom")
   description         = try(each.value.properties.description, "")
-  management_group_id = data.azurerm_management_group.this.id
+  management_group_id = data.azurerm_management_group.root.id
   metadata            = jsonencode(try(each.value.properties.metadata, {}))
   parameters          = try(each.value.properties.parameters, null) != null && try(each.value.properties.parameters, {}) != {} ? jsonencode(each.value.properties.parameters) : null
   policy_rule         = jsonencode(try(each.value.properties.policyRule, {}))
@@ -34,7 +57,7 @@ resource "azurerm_policy_set_definition" "this" {
   display_name        = try(each.value.properties.displayName, "")
   name                = each.key
   policy_type         = try(each.value.properties.policyType, "Custom")
-  management_group_id = data.azurerm_management_group.this.id # TODO - this should be dynamic as well, as it comes from the parameters
+  management_group_id = data.azurerm_management_group.root.id
   metadata            = jsonencode(try(each.value.properties.metadata, {}))
   parameters          = try(each.value.properties.parameters, null) != null && try(each.value.properties.parameters, {}) != {} ? jsonencode(each.value.properties.parameters) : null
 
