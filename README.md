@@ -30,7 +30,6 @@ The following policy assignments are made:
 
 There is one additional policy set definition `Deploy-AMBA-HybridVM` which is currently not assigned.
 
-````
 
 
 ## Migrate from previous deployment to terraform
@@ -43,13 +42,13 @@ Look at the examples/default_with_all_parameters to see the full list of paramet
 
 The parameters variable is set as following:
 
-  ```hcl
+```hcl
   parameters {
     InitiativeAssignmentName : {
       ParameterName = ParameterValue
     }
   }
-````
+```
 
 So for example, if you want to parameter `StorageAccountAvailabilityAlertState` in the initative `Deploy-AMBA-Management` from default `true` to `false`, your variable would look similar to this:
 
