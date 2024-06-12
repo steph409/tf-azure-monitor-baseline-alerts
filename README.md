@@ -43,7 +43,7 @@ Look at the examples/default_with_all_parameters to see the full list of paramet
 The parameters variable is set as following:
 
 ```hcl
-  parameters {
+  parameters = {
     InitiativeAssignmentName : {
       ParameterName = ParameterValue
     }
@@ -54,8 +54,8 @@ So for example, if you want to parameter `StorageAccountAvailabilityAlertState` 
 
 ```hcl
 parameters = {
-  Deploy-AMBA-Management = {
-    StorageAccountAvailabilityAlertState = false
+  Deploy-AMBA-Management: {
+    StorageAccountAvailabilityAlertState: false
   }
 }
 ```
