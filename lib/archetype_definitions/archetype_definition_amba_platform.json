@@ -1,0 +1,7 @@
+{
+  "name": "amba_platform",
+  "policy_assignments": ["Deploy-AMBA-Identity", "Deploy-AMBA-Management", "Deploy-AMBA-Connectivity"],
+  "policy_definitions": [],
+  "policy_set_definitions": [],
+  "role_definitions": []
+}

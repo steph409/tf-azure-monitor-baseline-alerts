@@ -4,7 +4,7 @@ locals {
 
   alz_policy_assignments_decoded = { for k in var.alz_archetype_keys.alz_policy_assignment_keys :
     k => jsondecode(
-      templatefile("lib/policy_assignments/policy_assignment_${k}.json", var.template_file_vars)
+      templatefile("${var.rel_path}/lib/policy_assignments/policy_assignment_${k}.json", var.template_file_vars)
     )
   }
 }

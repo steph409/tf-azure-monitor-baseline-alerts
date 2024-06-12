@@ -140,12 +140,12 @@ $policySetDefinitionNames = $policySetDefinitionFiles | ForEach-Object {
 # Update the es_root archetype definition to reflect
 # the current list of Policy Definitions and Policy
 # Set Definitions
-$esRootFilePath = $TargetPath + "/lib/archetype_definitions/archetype_definition_custom_root.json"
-Write-Information "Loading `"es_root`" archetype definition." -InformationAction Continue
+$esRootFilePath = $TargetPath + "/lib/archetype_definitions/archetype_definition_amba_root.json"
+Write-Information "Loading `"amba_root`" archetype definition." -InformationAction Continue
 $esRootConfig = Get-Content -Path $esRootFilePath | ConvertFrom-Json
-Write-Information "Updating Policy Definitions in `"es_root`" archetype definition." -InformationAction Continue
+Write-Information "Updating Policy Definitions in `"amba_root`" archetype definition." -InformationAction Continue
 $esRootConfig.policy_definitions = $policyDefinitionNames
-Write-Information "Updating Policy Set Definitions in `"es_root`" archetype definition." -InformationAction Continue
+Write-Information "Updating Policy Set Definitions in `"amba_root`" archetype definition." -InformationAction Continue
 $esRootConfig.policy_set_definitions = $policySetDefinitionNames
-Write-Information "Saving `"es_root`" archetype definition." -InformationAction Continue
+Write-Information "Saving `"amba_root`" archetype definition." -InformationAction Continue
 $esRootConfig | ConvertTo-Json -Depth 10 | Edit-LineEndings -LineEnding $LineEnding | Out-File -FilePath $esRootFilePath -Force

@@ -13,9 +13,19 @@ terraform {
       source  = "Azure/alz"
       version = "0.11.0"
     }
-    grafana = {
-      source  = "grafana/grafana"
-      version = ">= 2.9.0"
+  }
+  backend "azurerm" {
+    use_azuread_auth = true
+  }
+}
+provider "azurerm" {
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
     }
   }
+  subscription_id = var.subscription_id
+}
+
+provider "azapi" {
 }

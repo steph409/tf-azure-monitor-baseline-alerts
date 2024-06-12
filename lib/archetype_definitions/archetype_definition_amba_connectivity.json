@@ -1,0 +1,7 @@
+{
+  "name": "amba_connectivity",
+  "policy_assignments": ["Deploy-AMBA-Connectivity"],
+  "policy_definitions": [],
+  "policy_set_definitions": [],
+  "role_definitions": []
+}

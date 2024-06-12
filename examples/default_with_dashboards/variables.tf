@@ -1,3 +1,16 @@
+variable "grafana_auth" {
+
+}
+
+variable "grafana_url" {
+
+}
+
+variable "log_analytics_workspace_id" {
+  default = ""
+}
+
+
 variable "subscription_id" {
   type = string
 
@@ -18,17 +31,16 @@ variable "tenant_id" {
   type = string
 }
 
-
 variable "parameters" {
   description = "values for the parameters for the policy assignments. The default are the default for each policy."
   default = {
     "Deploy-AMBA-HybridVM" : {
-      "ALZMonitorResourceGroupName" : "ALZ-Monitoring-RG",
+      "ALZMonitorResourceGroupName" : "rg-amba-monitoring-001",
       "ALZMonitorResourceGroupTags" : {
         "_deployed_by_alz_monitor" : true,
         "_deployed_by_terraform" : true
       },
-      "ALZMonitorResourceGroupLocation" : "centralus",
+      "ALZMonitorResourceGroupLocation" : "germanywestcentral",
       "ALZUserAssignedManagedIdentityName" : "id-AMBA-ARG-Reader-001",
       "ALZManagementSubscriptionId" : "",
       "BYOUserAssignedManagedIdentityResourceId" : "",
@@ -230,12 +242,12 @@ variable "parameters" {
       "HybridVMDisconnectedAlertFailingPeriods" : "1"
     },
     "Deploy-AMBA-Management" : {
-      "ALZMonitorResourceGroupName" : "ALZ-Monitoring-RG",
+      "ALZMonitorResourceGroupName" : "rg-amba-monitoring-001",
       "ALZMonitorResourceGroupTags" : {
         "_deployed_by_alz_monitor" : true,
         "_deployed_by_terraform" : true
       },
-      "ALZMonitorResourceGroupLocation" : "centralus",
+      "ALZMonitorResourceGroupLocation" : "germanywestcentral",
       "AATotalJobAlertSeverity" : "2",
       "AATotalJobAlertWindowSize" : "PT5M",
       "AATotalJobAlertEvaluationFrequency" : "PT1M",
@@ -255,12 +267,12 @@ variable "parameters" {
       "activityLAWKeyRegenAlertState" : "true"
     },
     "Deploy-AMBA-SvcHealth" : {
-      "ALZMonitorResourceGroupName" : "ALZ-Monitoring-RG",
+      "ALZMonitorResourceGroupName" : "rg-amba-monitoring-001",
       "ALZMonitorResourceGroupTags" : {
         "_deployed_by_alz_monitor" : true,
         "_deployed_by_terraform" : true
       },
-      "ALZMonitorResourceGroupLocation" : "centralus",
+      "ALZMonitorResourceGroupLocation" : "germanywestcentral",
       "ResHlthUnhealthyAlertState" : "true",
       "ResHlthUnhealthyPolicyEffect" : "deployIfNotExists",
       "SvcHlthAdvisoryAlertState" : "true",
@@ -284,12 +296,12 @@ variable "parameters" {
       "BYOAlertProcessingRule" : ""
     },
     "Deploy-AMBA-Connectivity" : {
-      "ALZMonitorResourceGroupName" : "ALZ-Monitoring-RG",
+      "ALZMonitorResourceGroupName" : "rg-amba-monitoring-001",
       "ALZMonitorResourceGroupTags" : {
         "_deployed_by_alz_monitor" : true,
         "_deployed_by_terraform" : true
       },
-      "ALZMonitorResourceGroupLocation" : "centralus",
+      "ALZMonitorResourceGroupLocation" : "germanywestcentral",
       "ERCIRQoSDropBitsinPerSecAlertSeverity" : "2",
       "ERCIRQoSDropBitsinPerSecWindowSize" : "PT5M",
       "ERCIRQoSDropBitsinPerSecEvaluationFrequency" : "PT5M",
@@ -552,12 +564,12 @@ variable "parameters" {
       "ERPTxLightLevelLowAlertState" : "true"
     },
     "Deploy-AMBA-LandingZone" : {
-      "ALZMonitorResourceGroupName" : "ALZ-Monitoring-RG",
+      "ALZMonitorResourceGroupName" : "rg-amba-monitoring-001",
       "ALZMonitorResourceGroupTags" : {
         "_deployed_by_alz_monitor" : true,
         "_deployed_by_terraform" : true
       },
-      "ALZMonitorResourceGroupLocation" : "centralus",
+      "ALZMonitorResourceGroupLocation" : "germanywestcentral",
       "KVRequestAlertSeverity" : "2",
       "KVRequestWindowSize" : "PT5M",
       "KVRequestEvaluationFrequency" : "PT5M",
@@ -925,12 +937,12 @@ variable "parameters" {
       "FDBackendRequestLatencyAlertState" : "true"
     },
     "Deploy-AMBA-Notification" : {
-      "ALZMonitorResourceGroupName" : "ALZ-Monitoring-RG",
+      "ALZMonitorResourceGroupName" : "rg-amba-monitoring-001",
       "ALZMonitorResourceGroupTags" : {
         "_deployed_by_alz_monitor" : true,
         "_deployed_by_terraform" : true
       },
-      "ALZMonitorResourceGroupLocation" : "centralus",
+      "ALZMonitorResourceGroupLocation" : "germanywestcentral",
       "ALZMonitorActionGroupEmail" : "",
       "ALZLogicappResourceId" : "",
       "ALZLogicappCallbackUrl" : "",
@@ -943,12 +955,12 @@ variable "parameters" {
       "BYOAlertProcessingRule" : ""
     },
     "Deploy-AMBA-Identity" : {
-      "ALZMonitorResourceGroupName" : "ALZ-Monitoring-RG",
+      "ALZMonitorResourceGroupName" : "rg-amba-monitoring-001",
       "ALZMonitorResourceGroupTags" : {
         "_deployed_by_alz_monitor" : true,
         "_deployed_by_terraform" : true
       },
-      "ALZMonitorResourceGroupLocation" : "centralus",
+      "ALZMonitorResourceGroupLocation" : "germanywestcentral",
       "KVRequestAlertSeverity" : "2",
       "KVRequestWindowSize" : "PT5M",
       "KVRequestEvaluationFrequency" : "PT5M",

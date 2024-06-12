@@ -1,39 +1,23 @@
-provider "alz" {
-  lib_urls    = ["${path.root}/lib"] # TODO add version similar to alz_lib_ref = "platform/alz@v2024.03.00"
-  use_alz_lib = false
-}
 
 locals {
-  template_file_vars = {
-    root_scope_resource_id      = "/providers/Microsoft.Management/managementGroups/${data.azurerm_management_group.root.name}"
-    current_scope_resource_id   = "/providers/Microsoft.Management/managementGroups/${data.azurerm_management_group.root.name}"
-    default_location            = var.default_location
-    connectivityManagementGroup = data.azurerm_management_group.connectivity.name
-    managementManagementGroup   = data.azurerm_management_group.management.name
-    IdentityManagementGroup     = data.azurerm_management_group.identity.name
-    LandingZoneManagementGroup  = data.azurerm_management_group.landingzones.name
-    contoso                     = data.azurerm_management_group.root.name
-  }
-
   # this is not working
   # alz_policy_definitions_decoded = { for k in data.alz_archetype_keys.this.alz_policy_definition_keys : k => jsondecode(data.alz_archetype.this.alz_policy_definitions[k]) }
   # alz_policy_set_definitions_decoded = { for k in data.alz_archetype_keys.root.alz_policy_set_definition_keys : k => jsondecode(data.alz_archetype.root.alz_policy_set_definitions[k]) }
 
   # there is a new experiment templatestring in terraform v1.9 alpha which might be a solution for this
   # workaround until this is GA:
-  alz_policy_definitions_decoded = { for k in data.alz_archetype_keys.root.alz_policy_definition_keys :
+  alz_policy_definitions_decoded = { for k in var.alz_archetype_keys.alz_policy_definition_keys :
     k => jsondecode(
-      templatefile("lib/policy_definitions/policy_definition_${lower(k)}.json", local.template_file_vars)
+      templatefile("${var.rel_path}/lib/policy_definitions/policy_definition_${lower(k)}.json", var.template_file_vars)
     )
   }
 
-  alz_policy_set_definitions_decoded = { for k in data.alz_archetype_keys.root.alz_policy_set_definition_keys :
+  alz_policy_set_definitions_decoded = { for k in var.alz_archetype_keys.alz_policy_set_definition_keys :
     k => jsondecode(
-      templatefile("lib/policy_set_definitions/policy_set_definition_${lower(replace(k, "-", "_"))}.json", local.template_file_vars)
+      templatefile("${var.rel_path}/lib/policy_set_definitions/policy_set_definition_${lower(replace(k, "-", "_"))}.json", var.template_file_vars)
     )
   }
 }
-
 
 resource "azurerm_policy_definition" "this" {
   for_each = local.alz_policy_definitions_decoded
@@ -43,7 +27,7 @@ resource "azurerm_policy_definition" "this" {
   name                = each.key
   policy_type         = try(each.value.properties.policyType, "Custom")
   description         = try(each.value.properties.description, "")
-  management_group_id = data.azurerm_management_group.root.id
+  management_group_id = var.management_group_id
   metadata            = jsonencode(try(each.value.properties.metadata, {}))
   parameters          = try(each.value.properties.parameters, null) != null && try(each.value.properties.parameters, {}) != {} ? jsonencode(each.value.properties.parameters) : null
   policy_rule         = jsonencode(try(each.value.properties.policyRule, {}))
@@ -56,7 +40,7 @@ resource "azurerm_policy_set_definition" "this" {
   display_name        = try(each.value.properties.displayName, "")
   name                = each.key
   policy_type         = try(each.value.properties.policyType, "Custom")
-  management_group_id = data.azurerm_management_group.root.id
+  management_group_id = var.management_group_id
   metadata            = jsonencode(try(each.value.properties.metadata, {}))
   parameters          = try(each.value.properties.parameters, null) != null && try(each.value.properties.parameters, {}) != {} ? jsonencode(each.value.properties.parameters) : null
 
